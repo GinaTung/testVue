@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* 讓內容在視窗高度內置中 */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.container {
+  width: 1320px;
+  margin: 80px auto 30px; /* 80px 確保不被 nav-bar 蓋住 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.nav-bar {
+  background: linear-gradient(to top right, #41b782, #86d169);
+  padding: 20px 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* 確保在最上層 */
+}
+
+.product {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap; /* 讓內容在小螢幕時可以換行 */
+  justify-content: center;
+}
+.product-image {
+  padding: 0 24px;
+  width: 50%;
+  display: flex;
+  justify-content: flex-end
+}
+.product-image a {
+  width: 50%;
+}
+.product-info {
+  width: 50%;
+  flex: 0 0 auto;
+}
+.active {
+  font-weight: bold;
+  color: red;
+  cursor: pointer;
+}
+.color-box{
+  width: 40px;
+  height: 40px;
+}
+li:last-child .color-box {
+  margin-top: 5px;
+}
+.disabledButton{
+  background-color: #EFEFEF4D;
+
+}
+.tag-status{
+  text-decoration: line-through;
+}

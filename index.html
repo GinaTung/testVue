@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Product App</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="nav-bar"></div>
+      <div class="product container">
+        <div class="product-image">
+          <a :href="product.link" target="_blank">
+            <img :src="computedImage" :alt="product.name" />
+          </a>
+        </div>
+        <div class="product-info">
+          <h1>{{ title }}</h1>
+          <p :class="{'active':!product.onSale}">{{ saleMessage }}</p>
+          <!-- 判斷庫存狀況 -->
+          <p v-if="product.inventory <= 10"
+          :class="{'tag-status': !product.onSale && product.inventory <= 10}">Out of Stock</p>
+          <p v-else-if="product.inventory <= 25">
+            Almost sold out
+            <span style="color: red; font-weight: bold"> On Sale!</span>
+          </p>
+          <p v-else-if="product.inventory <= 50">
+            Special Sale
+            <span style="color: red; font-weight: bold"> On Sale!</span>
+          </p>
+          <p v-else>In Stock</p>
+          <!-- 顯示顏色 -->
+          <h3>Available Colors:</h3>
+          <ul>
+            <li v-for="(variant,index) in product.variants" :key="variant.variantId" style="list-style:none;">
+              <div class="color-box"
+              :style="{background:variant.variantColor}"
+              @mouseover="updateProduct(index,variant.type)"></div>
+              <!-- <p  @mouseover="updateProduct(variant.variantImage,variant.variantId)"
+              :class="{ active: selectedItem === variant.variantId }">
+                {{ variant.variantColor }}
+              </p> -->
+            </li>
+          </ul>
+
+          <!-- 顯示尺寸 -->
+          <h3>Available Sizes:</h3>
+          <ul>
+            <li v-for="(size,index) in product.sizes" :key="size.sizeId">
+              <p @mouseover="updateProduct(index,size.variantId)"
+              :class="{ active: selectedItem === size.variantId }">{{ size.variantSize }}</p>
+            </li>
+          </ul>
+          <p>{{product.description}}</p>
+          <span> Cart</span>
+          <button @click="addToCart" :disabled="!onSale"
+          :class="{disabledButton: !onSale}">+</button>
+          <span> ( {{cartNum}} )</span>
+          <button @click="removeFromCart" :disabled="cartNum ===0">-</button>
+          <!-- <p>Today is {{ new Date().toLocaleDateString() }}</p>
+          <p>{{ product.name + ' ?' }}</p>
+          <p>{{ product.name + '' + product.description }}</p>
+          <p>{{product.name.split('').reverse().join('')}}</p> -->
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
